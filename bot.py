@@ -22,8 +22,15 @@ def roll(name,r):
    return name + ' just rolled ' + str(dice(r))
 
 #Procedura logowania
-mail = raw_input('Enter e-mail adress')
-passwd = raw_input('Enter password')
+mail = raw_input('Enter e-mail adress: ')
+passwd = raw_input('Enter password: ')
+
+restrict = false
+restrictedChannel = ''
+
+def isAllowed(channel)
+   return restrictedChannel == channel if restrict else true
+
 client = discord.Client()
 client.login(mail, passwd)
 
@@ -35,8 +42,14 @@ def on_message(message):
     print(message.author.name + ': ' + message.content)
     if message.author.id != client.user.id:
         s = message.content.split(' ')
-        if s[0]=='/roll' and len(s)==2:
-            client.send_message(message.channel, roll(message.author.name,s[1]))
+        if s[0]=='/restrict':
+            restrict = true
+            restrictedChannel = message.channel
+        if s[0]=='/unrestrict:
+            restrict = false
+        if isAllowed(message.channel):
+            if s[0]=='/roll' and len(s)==2:
+                client.send_message(message.channel, roll(message.author.name,s[1]))
 
 @client.event
 def on_ready():
