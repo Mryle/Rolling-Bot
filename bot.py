@@ -29,7 +29,7 @@ restrict = False
 restrictedChannel = ''
 
 def isAllowed(channel):
-   return restrictedChannel == channel if restrict else true
+   return restrictedChannel == channel if restrict else True
 
 client = discord.Client()
 client.login(mail, passwd)
@@ -40,6 +40,8 @@ def on_message(message):
     #if message.author.id != client.user.id:
     #    client.send_message(message.channel, message.content)
     print(message.author.name + ': ' + message.content)
+    for attach in message.attachments:
+       print("Attachments:" + str(attach['url']))
     if message.author.id != client.user.id:
         s = message.content.split(' ')
         if s[0]=='/restrict':
