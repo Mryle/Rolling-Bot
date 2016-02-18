@@ -1,5 +1,6 @@
 import discord
 import random
+from scripts import counting as ct
 
 #wyliczenie wartosci w notacji kostkowej
 #TODO: Dodac funkcjonalnosci
@@ -34,6 +35,8 @@ def isAllowed(channel):
 client = discord.Client()
 client.login(mail, passwd)
 
+pars = ct.parser()
+
 
 @client.event
 def on_message(message):
@@ -52,6 +55,10 @@ def on_message(message):
         if isAllowed(message.channel):
             if s[0]=='/roll' and len(s)==2:
                 client.send_message(message.channel, roll(message.author.name,s[1]))
+            if s[0]=='/eval' and len(s)==2:
+                result = pars.parse(s[1])
+                client.send_message(message.channel, pars.output)
+                pars.output = ''  
 
 @client.event
 def on_ready():
