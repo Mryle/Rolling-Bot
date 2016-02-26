@@ -59,6 +59,11 @@ def on_message(message):
                 result = pars.parse(s[1])
                 client.send_message(message.channel, pars.output)
                 pars.output = ''  
+            if s[0]=='/card' and len(s)==1:
+                client.send_message(message.channel,"http://www.myth-weavers.com/sheet.html#id=694115 - Radi ' Gui-don Elf")  
+                client.send_message(message.channel,"http://www.myth-weavers.com/sheet.html#id=711046 - Sowa ' Taedhwen Changeling") 
+                client.send_message(message.channel,"http://www.myth-weavers.com/sheet.html#id=720569 - Rodez ' Rognar Ork") 
+
 
 @client.event
 def on_ready():
