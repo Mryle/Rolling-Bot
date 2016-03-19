@@ -1,4 +1,5 @@
 import discord
+import asyncio
 import random
 from scripts import counting as ct
 
@@ -6,7 +7,6 @@ from scripts import counting as ct
 #TODO: Dodac funkcjonalnosci
 def dice(s):
     return sum(diceTerm(x) for x in s.split('+'))
-
 
 def diceTerm(t):
     p = t.split('*')
@@ -22,23 +22,21 @@ def diceFactor(f):
 def roll(name,r):
    return name + ' just rolled ' + str(dice(r))
 
+def isAllowed(channel):
+   return restrictedChannel == channel if restrict else True
+
 #Procedura logowania
-mail = raw_input('Enter e-mail adress: ')
-passwd = raw_input('Enter password: ')
+mail = input('Enter e-mail adress: ')
+passwd = input('Enter password: ')
 
 restrict = False
 restrictedChannel = ''
 
-def isAllowed(channel):
-   return restrictedChannel == channel if restrict else True
-
 client = discord.Client()
-client.login(mail, passwd)
-
 pars = ct.parser()
 
-
 @client.event
+@asyncio.coroutine
 def on_message(message):
     #if message.author.id != client.user.id:
     #    client.send_message(message.channel, message.content)
@@ -66,10 +64,11 @@ def on_message(message):
 
 
 @client.event
+@asyncio.coroutine
 def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
-
-client.run()
+    
+client.run(mail, passwd)

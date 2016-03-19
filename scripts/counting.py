@@ -61,7 +61,7 @@ class parser:
       ret = self._number(exp,0,i)
       l1 = ret[0]
       i = ret[1]
-      while exp[i][0]<>'END' and exp[i][0]<>'RPAR':
+      while exp[i][0]!='END' and exp[i][0]!='RPAR':
          ret = self._eval(l1,exp,i)
          l1 = ret[0]
          i = ret[1]
